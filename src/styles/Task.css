@@ -1,0 +1,61 @@
+.task-view {
+  background: #000000;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  min-height: 70vh;
+}
+
+.task-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 1rem; margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.task-header h2 { margin: 0; color: var(--text-main); font-weight: bold; font-size: 1.4em;}
+.task-subtext { color: var(--text-muted); font-size: 0.9em; margin-bottom: 2rem; }
+
+.task-subject-group { margin-bottom: 2rem; }
+.task-subject-title { 
+  color: var(--text-main); 
+  margin-bottom: 0.8rem; 
+  font-size: 1.1em; 
+  letter-spacing: 1px; 
+  font-weight: bold; 
+  text-transform: uppercase;
+}
+
+.task-system-group { 
+  padding: 1rem; 
+  background: #000000; /* Pure plain black */
+  border-radius: 8px; 
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Thin subtle border */
+  box-shadow: none;
+}
+.task-system-title { color: var(--accent-calm); margin: 0 0 0.8rem 0; font-size: 0.95em; font-weight: bold; }
+
+.task-item {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 0.4rem; cursor: pointer; color: var(--text-main);
+  padding: 4px 8px; border-radius: 6px; transition: 0.2s;
+  font-size: 0.9em;
+}
+.task-item:hover { background: rgba(255,255,255,0.05); }
+
+.task-item input[type="checkbox"] {
+  appearance: none;
+  background-color: var(--bg-base);
+  margin: 0; color: currentColor;
+  width: 1em; height: 1em;
+  border-radius: 3px; border: 1px solid var(--text-muted);
+  display: grid; place-content: center; cursor: pointer;
+}
+.task-item input[type="checkbox"]::before {
+  content: ""; width: 0.6em; height: 0.6em; transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--text-main);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+.task-item input[type="checkbox"]:checked::before { transform: scale(1); }
+.completed-text { text-decoration: line-through; color: var(--text-muted); opacity: 0.5; }
