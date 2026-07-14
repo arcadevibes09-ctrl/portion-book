@@ -1,12 +1,11 @@
 {
-  "appId": "com.suru.app",
+  "appId": "com.yourdomain.suru",
   "appName": "Suru",
   "webDir": "dist",
-  "backgroundColor": "#000000",
   "plugins": {
     "StatusBar": {
-      "style": "DARK",
-      "backgroundColor": "#000000"
+      "overlaysWebView": true,
+      "style": "DARK"
     }
   }
 }
