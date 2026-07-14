@@ -16,6 +16,8 @@ body {
   /* Make all UI uncopyable by default */
   user-select: none;
   -webkit-user-select: none;
+  background-color: #000000; 
+  padding-top: env(safe-area-inset-top);
 }
 
 .notebook-page {
