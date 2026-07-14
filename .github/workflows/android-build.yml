@@ -29,6 +29,9 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
+      - name: Generate App Icons
+        run: npx @capacitor/assets generate --iconBackgroundColor '#000000' --iconBackgroundColorDark '#000000' --splashBackgroundColor '#000000' --splashBackgroundColorDark '#000000'
+
       - name: Make Gradle executable
         run: chmod +x android/gradlew
 
