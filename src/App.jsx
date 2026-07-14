@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { StatusBar } from '@capacitor/status-bar';
 import { Menu, ChevronRight } from 'lucide-react';
 import { courseStructure } from './data/data_structure';
 import Task from './Task';
@@ -43,6 +44,21 @@ export default function App() {
   const [inTaskView, setInTaskView] = useState(false); 
   const [scores, setScores] = useState({ user: 0, opponent: 0 });
   const [isImmersive, setIsImmersive] = useState(false);
+
+  // --- Capacitor Status Bar Fix ---
+  useEffect(() => {
+    const setupStatusBar = async () => {
+      try {
+        // This makes the status bar completely transparent and overlays it on your web view
+        await StatusBar.setOverlaysWebView({ overlay: true });
+      } catch (error) {
+        console.log("Status bar overlay not supported on web, ignoring.");
+      }
+    };
+
+    setupStatusBar();
+  }, []);
+  // --------------------------------
 
   const getNextTopic = (currentTopicId) => {
     let foundCurrent = false;
@@ -143,14 +159,14 @@ export default function App() {
                 { value: '0.85rem', label: 'Size: S' },
                 { value: '1rem', label: 'Size: M' },
                 { value: '1.25rem', label: 'Size: L' },
-         ]}
-      />
+              ]}
+            />
 
-<CustomSelect
-  value={currentFont}
-  onChange={setCurrentFont}
-  options={fonts.map(f => ({ value: f.value, label: f.name }))}
-/>
+            <CustomSelect
+              value={currentFont}
+              onChange={setCurrentFont}
+              options={fonts.map(f => ({ value: f.value, label: f.name }))}
+            />
           </div>
         </div>
 
@@ -170,13 +186,13 @@ export default function App() {
                   <CustomSelect
                     value={currentMode}
                     onChange={setCurrentMode}
-                      options={[
-                        { value: 'simple', label: 'Mode: Simple' },
-                        { value: 'suru', label: 'Mode: Suru' },
-                        { value: 'thorfinn', label: 'Mode: Thorfinn' },
-                        { value: 'advanced', label: 'Mode: Advanced' },
-         ]}
-         />
+                    options={[
+                      { value: 'simple', label: 'Mode: Simple' },
+                      { value: 'suru', label: 'Mode: Suru' },
+                      { value: 'thorfinn', label: 'Mode: Thorfinn' },
+                      { value: 'advanced', label: 'Mode: Advanced' },
+                    ]}
+                  />
                   
                   <button className="bare-play-btn" onClick={() => setInChallenge(true)} title="Initialize Trial">
                     <TrialIcon />
