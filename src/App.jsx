@@ -8,6 +8,7 @@ import { suruData } from './data/data_suru';
 import { thorfinnData } from './data/data_thorfinn';
 import { simpleData } from './data/data_simple';
 import { advancedData } from './data/data_advanced';
+import CustomSelect from './CustomSelect';
 
 import './styles/App.css';
 
@@ -135,17 +136,21 @@ export default function App() {
           </div>
           
           <div className="dropdown-group" style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
-            <select className="micro-select" value={currentFontSize} onChange={(e) => setCurrentFontSize(e.target.value)}>
-              <option value="0.85rem">Size: S</option>
-              <option value="1rem">Size: M</option>
-              <option value="1.25rem">Size: L</option>
-            </select>
-            
-            <select className="micro-select" value={currentFont} onChange={(e) => setCurrentFont(e.target.value)}>
-              {fonts.map((f, idx) => (
-                <option key={idx} value={f.value}>{f.name}</option>
-              ))}
-            </select>
+            <CustomSelect
+              value={currentFontSize}
+              onChange={setCurrentFontSize}
+              options={[
+                { value: '0.85rem', label: 'Size: S' },
+                { value: '1rem', label: 'Size: M' },
+                { value: '1.25rem', label: 'Size: L' },
+         ]}
+      />
+
+<CustomSelect
+  value={currentFont}
+  onChange={setCurrentFont}
+  options={fonts.map(f => ({ value: f.value, label: f.name }))}
+/>
           </div>
         </div>
 
@@ -162,12 +167,16 @@ export default function App() {
               <>
                 <h1 className="topic-title">{activeTopic.title}</h1>
                 <div className="mode-select-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', marginTop: '1.5rem', padding: '0 1.5rem', width: '100%', boxSizing: 'border-box', transition: '0.3s' }}>
-                  <select className="micro-select mode-select" value={currentMode} onChange={(e) => setCurrentMode(e.target.value)}>
-                    <option value="simple">Mode: Simple</option>
-                    <option value="suru">Mode: Suru</option>
-                    <option value="thorfinn">Mode: Thorfinn</option>
-                    <option value="advanced">Mode: Advanced</option>
-                  </select>
+                  <CustomSelect
+                    value={currentMode}
+                    onChange={setCurrentMode}
+                      options={[
+                        { value: 'simple', label: 'Mode: Simple' },
+                        { value: 'suru', label: 'Mode: Suru' },
+                        { value: 'thorfinn', label: 'Mode: Thorfinn' },
+                        { value: 'advanced', label: 'Mode: Advanced' },
+         ]}
+         />
                   
                   <button className="bare-play-btn" onClick={() => setInChallenge(true)} title="Initialize Trial">
                     <TrialIcon />
