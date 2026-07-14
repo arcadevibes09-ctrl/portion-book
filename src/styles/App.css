@@ -35,7 +35,8 @@ input, textarea, button, select { font-family: inherit; }
 
 body {
   margin: 0;
-  background-color: var(--bg-base);
+  background-color: #000000; 
+  padding-top: env(safe-area-inset-top);
   color: var(--text-main);
   overflow-x: hidden;
   user-select: none;
