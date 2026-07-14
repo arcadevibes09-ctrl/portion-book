@@ -42,7 +42,7 @@ export default function Competition({ topicTitle, modeData, modeName, onClose, o
   return (
     <div className="competition-arena">
       <div className="comp-header">
-        <h2>Trial: {topicTitle} <span style={{fontSize: '0.8em', color: 'var(--text-muted)'}}>({modeName})</span></h2>
+        <h2>{topicTitle} <span style={{fontSize: '0.8em', color: 'var(--text-muted)'}}></span></h2>
         <button className="comp-close" onClick={onClose}><CloseIcon /></button>
       </div>
 

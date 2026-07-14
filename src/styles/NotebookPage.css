@@ -51,15 +51,17 @@
 }
 
 /* Aesthetic Banner Headings */
-.banner-heading {
-  color: var(--accent-blue);
-  padding: 8px 0;
-  margin: 25px 0 10px 0;
-  font-size: 1.4em;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--glass-border);
+.banner-heading { 
+  display: flex; 
+  align-items: center;
+  padding: 8px 0; 
+  margin: 3rem 0 1.2rem 0; 
+  font-size: 1.6em; 
+  font-weight: 700; 
+  letter-spacing: 0.5px; 
 }
+
+
 
 /* Pagination */
 .pagination { display: flex; justify-content: center; gap: 20px; margin-top: 3rem; font-size: 1em; }

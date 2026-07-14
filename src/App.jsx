@@ -1,43 +1,47 @@
 import React, { useState } from 'react';
 import { Menu, ChevronRight } from 'lucide-react';
 import { courseStructure } from './data/data_structure';
+import Task from './Task';
+import Competition from './Competition';
+import NotebookPage from './NotebookPage';
 import { suruData } from './data/data_suru';
 import { thorfinnData } from './data/data_thorfinn';
 import { simpleData } from './data/data_simple';
 import { advancedData } from './data/data_advanced';
 
-import NotebookPage from './NotebookPage';
-import Competition from './Competition';
-import Task from './Task'; 
 import './styles/App.css';
 
 const allModeData = { suru: suruData, thorfinn: thorfinnData, simple: simpleData, advanced: advancedData };
 
+// Your requested premium fonts
+const fonts = [
+  { name: 'Bubblegum', value: "'Bubblegum Sans', cursive" },
+  { name: 'Open Sans', value: "'Open Sans', sans-serif" },
+  { name: 'Philosopher', value: "'Philosopher', sans-serif" },
+  { name: 'Mulish', value: "'Mulish', sans-serif" },
+  { name: 'Poiret One', value: "'Poiret One', cursive" },
+  { name: 'Montserrat', value: "'Montserrat', sans-serif" },
+  { name: 'Rethink Sans', value: "'Rethink Sans', sans-serif" },
+  { name: 'Quicksand', value: "'Quicksand', sans-serif" },
+  { name: 'DotGothic16', value: "'DotGothic16', sans-serif" },
+  { name: 'Space Mono', value: "'Space Mono', monospace" },
+  { name: 'Stint Ultra', value: "'Stint Ultra Expanded', cursive" },
+  { name: 'Pontano Sans', value: "'Pontano Sans', sans-serif" },
+  { name: 'Unica One', value: "'Unica One', cursive" },
+  { name: 'Arima', value: "'Arima', system-ui" }
+];
+
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentFont, setCurrentFont] = useState("'Patrick Hand', cursive");
+  const [currentFont, setCurrentFont] = useState(fonts[8].value); // Default to DotGothic16
   const [currentFontSize, setCurrentFontSize] = useState('1rem');
-  const [currentMode, setCurrentMode] = useState('suru'); 
+  const [currentMode, setCurrentMode] = useState('simple'); 
   const [activeTopic, setActiveTopic] = useState(null);
   
   const [inChallenge, setInChallenge] = useState(false);
   const [inTaskView, setInTaskView] = useState(false); 
   const [scores, setScores] = useState({ user: 0, opponent: 0 });
   const [isImmersive, setIsImmersive] = useState(false);
-
-  const fonts = [
-    { name: 'Standard (Clean)', value: 'system-ui, sans-serif' },
-    { name: 'Patrick Hand', value: "'Patrick Hand', cursive" },
-    { name: 'Gaegu', value: "'Gaegu', cursive" },
-    { name: 'Pretty Neat (Shadows)', value: "'Shadows Into Light', cursive" },
-    { name: 'Cartoonist (Indie)', value: "'Indie Flower', cursive" },
-    { name: 'Joyline (Gochi)', value: "'Gochi Hand', cursive" },
-    { name: 'Arnie (Kalam)', value: "'Kalam', cursive" },
-    { name: 'Jojoba (Sniglet)', value: "'Sniglet', cursive" },
-    { name: 'Shiny Marker', value: "'Permanent Marker', cursive" },
-    { name: 'Monstera (Apple)', value: "'Homemade Apple', cursive" },
-    { name: 'Cursive Notes', value: "'Caveat', cursive" }
-  ];
 
   const getNextTopic = (currentTopicId) => {
     let foundCurrent = false;
@@ -66,8 +70,8 @@ export default function App() {
   };
 
   const TrialIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{width: '18px', height: '18px'}}>
-      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{width: '24px', height: '24px'}}>
+      <polygon points="7 5 19 12 7 19 7 5"></polygon>
     </svg>
   );
 
@@ -85,7 +89,6 @@ export default function App() {
         <button className="sidebar-close" style={{ float: 'right', background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }} onClick={() => setSidebarOpen(false)}>×</button>
         <h2 className="home-btn" onClick={() => { setActiveTopic(null); setSidebarOpen(false); setInTaskView(false); }}>Home</h2>
         
-        {/* NEW: Highly visible Task Directives Button */}
         <div className="progress-container" style={{ margin: '1.5rem 0', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
           <p className="progress-label" style={{ fontSize: '0.75rem', color: '#737373', marginBottom: '4px' }}>Your Survival: {scores.user}</p>
           <div style={{ width: '100%', height: '4px', background: '#333', borderRadius: '2px', marginBottom: '10px' }}>
@@ -104,8 +107,7 @@ export default function App() {
           <h3 style={{ margin: 0, color: '#E0E0E0', fontSize: '1rem', fontWeight: 'bold' }}>Task Directives</h3>
         </div>
         
-        
-        {Object.entries(courseStructure).map(([subKey, subject]) => (
+        {courseStructure && Object.entries(courseStructure).map(([subKey, subject]) => (
           <div key={subKey}>
             <h3 className="sidebar-subject">{subject.title}</h3>
             {Object.entries(subject.systems).map(([sysKey, system]) => (
@@ -128,18 +130,20 @@ export default function App() {
 
       <div className="content-area">
         <div className="top-controls">
-          <div style={{ width: '20px' }}>
-            {!sidebarOpen && <Menu onClick={() => setSidebarOpen(true)} className="icon-btn" size={24} />}
+          <div style={{ width: '40px', display: 'flex', alignItems: 'center' }}>
+            {!sidebarOpen && <Menu onClick={() => setSidebarOpen(true)} className="icon-btn" size={28} />}
           </div>
-          <div className="dropdown-group">
+          
+          <div className="dropdown-group" style={{ marginLeft: 'auto', display: 'flex', gap: '8px' }}>
             <select className="micro-select" value={currentFontSize} onChange={(e) => setCurrentFontSize(e.target.value)}>
               <option value="0.85rem">Size: S</option>
               <option value="1rem">Size: M</option>
               <option value="1.25rem">Size: L</option>
             </select>
+            
             <select className="micro-select" value={currentFont} onChange={(e) => setCurrentFont(e.target.value)}>
-              {fonts.map(f => (
-                <option key={f.name} value={f.value}>{f.name}</option>
+              {fonts.map((f, idx) => (
+                <option key={idx} value={f.value}>{f.name}</option>
               ))}
             </select>
           </div>
@@ -157,17 +161,19 @@ export default function App() {
             {!inChallenge && (
               <>
                 <h1 className="topic-title">{activeTopic.title}</h1>
-                <div className="mode-select-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', marginTop: '1rem', padding: '0 1.5rem', transition: '0.3s' }}>
+                <div className="mode-select-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', marginTop: '1.5rem', padding: '0 1.5rem', width: '100%', boxSizing: 'border-box', transition: '0.3s' }}>
                   <select className="micro-select mode-select" value={currentMode} onChange={(e) => setCurrentMode(e.target.value)}>
                     <option value="simple">Mode: Simple</option>
                     <option value="suru">Mode: Suru</option>
                     <option value="thorfinn">Mode: Thorfinn</option>
                     <option value="advanced">Mode: Advanced</option>
                   </select>
-                  <button className="faint-btn" onClick={() => setInChallenge(true)} title="Initialize Trial">
+                  
+                  <button className="bare-play-btn" onClick={() => setInChallenge(true)} title="Initialize Trial">
                     <TrialIcon />
                   </button>
                 </div>
+                
                 <NotebookPage 
                   topicData={activeModePayload} 
                   onNextTopic={handleNextTopic}
@@ -190,4 +196,3 @@ export default function App() {
     </div>
   );
 }
-

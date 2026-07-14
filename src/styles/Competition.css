@@ -15,10 +15,19 @@
 .comp-header h2 { margin: 0; color: var(--accent-calm); font-weight: normal; font-size: 1.3em; }
 
 .comp-close { 
-  background: var(--bg-base); border: none; border-radius: 50%;
-  width: 36px; height: 36px; display: flex; justify-content: center; align-items: center;
-  color: var(--text-muted); cursor: pointer; 
-  box-shadow: var(--shadow-neo); transition: 0.2s;
+  background: var(--bg-base); 
+  border: none; 
+  border-radius: 50%;
+  width: 36px; 
+  height: 36px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--text-muted); 
+  cursor: pointer; 
+  box-shadow: var(--shadow-neo); 
+  transition: 0.2s;
 }
 .comp-close:hover { color: var(--accent-calm); box-shadow: var(--shadow-neo-inset); }
 
