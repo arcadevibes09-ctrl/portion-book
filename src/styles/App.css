@@ -20,6 +20,12 @@
 * { font-family: inherit; }
 input, textarea, button, select { font-family: inherit; }
 
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #000000;
+  min-height: 100vh;
+}
 
 :root {
   /* Pure Black Palette */
@@ -27,6 +33,7 @@ input, textarea, button, select { font-family: inherit; }
   --bg-surface: #121212;
   --text-main: #E0E0E0;
   --text-muted: #737373;
+  min-height: 100vh;
   
   --accent-calm: #D4D4D4; 
   --accent-calm-dim: rgba(212, 212, 212, 0.10);
@@ -41,6 +48,7 @@ body {
   overflow-x: hidden;
   user-select: none;
   -webkit-user-select: none;
+  min-height: 100vh;
 }
 
 
