@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from '@capacitor/status-bar';
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { Menu, ChevronRight } from 'lucide-react';
 import { courseStructure } from './data/data_structure';
 import Task from './Task';
@@ -45,12 +45,12 @@ export default function App() {
   const [scores, setScores] = useState({ user: 0, opponent: 0 });
   const [isImmersive, setIsImmersive] = useState(false);
 
-  // --- Capacitor Status Bar Fix ---
+  // --- Capacitor Status Bar Setup (runs once on load) ---
   useEffect(() => {
     const setupStatusBar = async () => {
       try {
-        // This makes the status bar completely transparent and overlays it on your web view
         await StatusBar.setOverlaysWebView({ overlay: true });
+        await StatusBar.setStyle({ style: Style.Dark }); // light icons for dark bg
       } catch (error) {
         console.log("Status bar overlay not supported on web, ignoring.");
       }
@@ -58,6 +58,22 @@ export default function App() {
 
     setupStatusBar();
   }, []);
+
+  // --- Immersive / Fullscreen Toggle (double-click trigger) ---
+  const toggleImmersive = async () => {
+    const newState = !isImmersive;
+    setIsImmersive(newState);
+
+    try {
+      if (newState) {
+        await StatusBar.hide();
+      } else {
+        await StatusBar.show();
+      }
+    } catch (error) {
+      console.log("Status bar toggle not supported, ignoring.");
+    }
+  };
   // --------------------------------
 
   const getNextTopic = (currentTopicId) => {
@@ -98,7 +114,7 @@ export default function App() {
     <div 
       className={`app-wrapper ${isImmersive ? 'immersive-mode' : ''}`} 
       style={{ fontFamily: currentFont, fontSize: currentFontSize }}
-      onDoubleClick={() => setIsImmersive(!isImmersive)}
+      onDoubleClick={toggleImmersive}
     >
       <div className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`} onClick={() => setSidebarOpen(false)}></div>
 
@@ -220,4 +236,4 @@ export default function App() {
       </div>
     </div>
   );
-}
+    }
